@@ -1,11 +1,11 @@
-CloudantTweetAnalysisDemo
+PresidentialTweets
 ====================================
 
-### What is CloudantTweetAnalysisDemo?
+### What is PresidentialTweets?
 
 It was created by a team of 4 at the SBHacks III hackathon in Santa Barbara, California. 
 
-The object of CloudantTweetAnalysisDemo was to collect tweets mentioning (as of Jan 21, 2017) former President Barack Obama and current president Donald Trump, run sentiment and tone analysis, and visualize the data on an esri ArcGIS map.
+The object of PresidentialTweets was to collect tweets mentioning (as of Jan 21, 2017) former President Barack Obama and current president Donald Trump, run sentiment and tone analysis, and visualize the data on an esri ArcGIS map.
 
 This can help determine the public opinion on both persons. Obama and Trump were chosen because both are active and mentioned very frequently on twitter, so we were able to get a large data set. Reasonably, this could be extended to any persons, or even two competing products. 
 
@@ -13,26 +13,26 @@ Both IBM and ESRI sponsoded the event, providing credits for BlueMix and ArcGIS 
 
 #### Map
 
-![sample-map-cali](https://raw.githubusercontent.com/mitchellwaite/CloudantTweetAnalysisDemo/master/sample-map.png)
+![sample-map-cali](https://raw.githubusercontent.com/mitchellwaite/PresidentialTweets/master/sample-map.png)
 
 For the selected category, green indicates a positive sentiment, blue indicates a neutral sentiment, and red indicates a negative sentiment.
 
 #### Node-RED flow
 
-![The Node-RED flow configuration](https://raw.githubusercontent.com/mitchellwaite/CloudantTweetAnalysisDemo/master/nodes-screenshot.png)
+![The Node-RED flow configuration](https://raw.githubusercontent.com/mitchellwaite/PresidentialTweets/master/nodes-screenshot.png)
 
 #### Links
 
 [Link to the website containing the ArcGIS map](http://mwaite.maps.arcgis.com/apps/View/index.html?webmap=d7087c6f6ba144fd84f003e37058b448)
 
-[Link to cleansed JSON Config](https://github.com/mitchellwaite/CloudantTweetAnalysisDemo/blob/master/nodes.json)
+[Link to cleansed JSON Config](https://github.com/mitchellwaite/PresidentialTweets/blob/master/nodes.json)
 
 ### Publish the NodeRED app in BlueMix
 
 This repository is based on a Node-RED application that can be deployed into
 Bluemix with only a couple clicks. Try it out for yourself right now by clicking:
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/mitchellwaite/CloudantTweetAnalysisDemo.git)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/mitchellwaite/PresidentialTweets.git)
 
 Then, import the nodes.json file, cofigure the twitter and cloudant nodes, and hit the "trigger" button! Tweets will start to be collected, filtered, and saved in the cloudant database.
 
