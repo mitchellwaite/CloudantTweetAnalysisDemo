@@ -1,0 +1,379 @@
+[
+    {
+        "id": "3976d383.e318f4",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "f895c8f.e9373b8",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MitchThepcman"
+    },
+    {
+        "id": "4545ab60.eb7f74",
+        "type": "sentiment",
+        "z": "3976d383.e318f4",
+        "name": "",
+        "x": 1049.16650390625,
+        "y": 171.4999542236328,
+        "wires": [
+            [
+                "e5dd91dd.2e9ed"
+            ]
+        ]
+    },
+    {
+        "id": "393a8aac.8d4d8e",
+        "type": "twitter in",
+        "z": "3976d383.e318f4",
+        "twitter": "f895c8f.e9373b8",
+        "tags": "",
+        "user": "false",
+        "name": "",
+        "topic": "tweets",
+        "inputs": 1,
+        "x": 460.8333740234375,
+        "y": 104.66666412353516,
+        "wires": [
+            [
+                "642c2b95.fcfba4"
+            ]
+        ]
+    },
+    {
+        "id": "b29676fe.5e1cb8",
+        "type": "watson-tone-analyzer-v3",
+        "z": "3976d383.e318f4",
+        "name": "",
+        "tones": "all",
+        "sentences": "true",
+        "contentType": "false",
+        "x": 1010.5,
+        "y": 306.8334045410156,
+        "wires": [
+            [
+                "c0b0d950.406e38"
+            ]
+        ]
+    },
+    {
+        "id": "dcc4c622.762f9",
+        "type": "function",
+        "z": "3976d383.e318f4",
+        "name": "filterFunction",
+        "func": "if (msg.tweet.user.location !== null)\n{\n    flow.set(\"location\",msg.tweet.user.location);\n    flow.set(\"tweet\",msg.tweet.text);\n    return {\n            location : msg.tweet.user.location,\n            payload  : msg.tweet.text\n            }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1049.4998779296875,
+        "y": 91.00000762939453,
+        "wires": [
+            [
+                "4545ab60.eb7f74"
+            ]
+        ]
+    },
+    {
+        "id": "4ff53c49.986abc",
+        "type": "inject",
+        "z": "3976d383.e318f4",
+        "name": "",
+        "topic": "",
+        "payload": "donald trump",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 123.5,
+        "y": 353.25,
+        "wires": [
+            [
+                "393a8aac.8d4d8e"
+            ]
+        ]
+    },
+    {
+        "id": "e5dd91dd.2e9ed",
+        "type": "function",
+        "z": "3976d383.e318f4",
+        "name": "Sentiment to Word",
+        "func": "var tmp = msg;\nvar sentimentString = \"NEUTRAL\";\nvar neutralThreshold = 0.3;\n\nif (tmp.sentiment.score > neutralThreshold)\n{\n    sentimentString = \"POSITIVE\";\n}\nelse if (tmp.sentiment.score < -neutralThreshold)\n{\n    sentimentString = \"NEGATIVE\";\n}\n\ntmp[\"sstring\"] = sentimentString;\n\nreturn tmp;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1019.4998779296875,
+        "y": 239.0833282470703,
+        "wires": [
+            [
+                "b29676fe.5e1cb8"
+            ]
+        ]
+    },
+    {
+        "id": "67e14bb7.c869dc",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Filters out tweets that only have a location attached",
+        "info": "",
+        "x": 1321.16650390625,
+        "y": 92.7500228881836,
+        "wires": []
+    },
+    {
+        "id": "c0b0d950.406e38",
+        "type": "function",
+        "z": "3976d383.e318f4",
+        "name": "mongoFilter",
+        "func": "msg[\"searchString\"] = flow.get(\"searchString\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1008.1666259765625,
+        "y": 377.0832824707031,
+        "wires": [
+            [
+                "8cf0a44a.e6ced",
+                "e0d46541.f2e268"
+            ]
+        ]
+    },
+    {
+        "id": "e0d46541.f2e268",
+        "type": "cloudant out",
+        "z": "3976d383.e318f4",
+        "name": "",
+        "cloudant": "",
+        "database": "tweets",
+        "service": "sample-node-red-cloudantNoSQLDB",
+        "payonly": false,
+        "operation": "insert",
+        "x": 978.16650390625,
+        "y": 465.2499084472656,
+        "wires": []
+    },
+    {
+        "id": "8cf0a44a.e6ced",
+        "type": "debug",
+        "z": "3976d383.e318f4",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 975.16650390625,
+        "y": 538.1666870117188,
+        "wires": []
+    },
+    {
+        "id": "77033cce.0cbe74",
+        "type": "function",
+        "z": "3976d383.e318f4",
+        "name": "twitterTrigger",
+        "func": "// initialise the counter to 0 if it doesn't exist already\nvar count = context.get('count')||0;\nvar outMessage = \"\";\n\nif (count === 0)\n{\n    count = 1;\n}\nelse if(count == 1)\n{\n    outMessage = \"barack obama\";\n    flow.set(\"searchString\",outMessage)\n    count = 2;\n}\nelse if(count === 2)\n{\n    count = 3;\n}\nelse if(count == 3)\n{\n    outMessage = \"donald trump\";\n    flow.set(\"searchString\",outMessage);\n    count = 0;\n}\n\n// store the value back\ncontext.set('count',count);\n\nreturn { payload : outMessage };",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 171.49996948242188,
+        "y": 573.75,
+        "wires": [
+            [
+                "393a8aac.8d4d8e"
+            ]
+        ]
+    },
+    {
+        "id": "96721f3b.b06c3",
+        "type": "inject",
+        "z": "3976d383.e318f4",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130.16668701171875,
+        "y": 227.24996948242188,
+        "wires": [
+            [
+                "393a8aac.8d4d8e"
+            ]
+        ]
+    },
+    {
+        "id": "b89817f3.90fc2",
+        "type": "inject",
+        "z": "3976d383.e318f4",
+        "name": "",
+        "topic": "",
+        "payload": "barack obama",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 123.5,
+        "y": 310.25,
+        "wires": [
+            [
+                "393a8aac.8d4d8e"
+            ]
+        ]
+    },
+    {
+        "id": "4e1e16b2.b17248",
+        "type": "inject",
+        "z": "3976d383.e318f4",
+        "name": "",
+        "topic": "",
+        "payload": "arnold schwarzenegger",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 113.33334350585938,
+        "y": 269.5833435058594,
+        "wires": [
+            [
+                "393a8aac.8d4d8e"
+            ]
+        ]
+    },
+    {
+        "id": "642c2b95.fcfba4",
+        "type": "delay",
+        "z": "3976d383.e318f4",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "19",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 470.833251953125,
+        "y": 200.0833282470703,
+        "wires": [
+            [
+                "dcc4c622.762f9"
+            ]
+        ]
+    },
+    {
+        "id": "3f962038.9a6d9",
+        "type": "inject",
+        "z": "3976d383.e318f4",
+        "name": "",
+        "topic": "",
+        "payload": "triggered",
+        "payloadType": "str",
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "x": 172.5,
+        "y": 533.9166259765625,
+        "wires": [
+            [
+                "77033cce.0cbe74"
+            ]
+        ]
+    },
+    {
+        "id": "707d3e93.87684",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Sets the searchString parameter in the final output object",
+        "info": "",
+        "x": 1335.8333740234375,
+        "y": 371.2499694824219,
+        "wires": []
+    },
+    {
+        "id": "d450751.f985888",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Using watson, calculates the AFINN-111 sentiment score of the tweet",
+        "info": "",
+        "x": 1382.5000610351562,
+        "y": 169.58331298828125,
+        "wires": []
+    },
+    {
+        "id": "eb8c1729.308a38",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Converts the sentiment score to a representative word",
+        "info": "",
+        "x": 1329.9999389648438,
+        "y": 236.66664123535156,
+        "wires": []
+    },
+    {
+        "id": "ddc1777.7711408",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Automatically changes the twitter search string",
+        "info": "",
+        "x": 430.83331298828125,
+        "y": 541.25,
+        "wires": []
+    },
+    {
+        "id": "e2df8278.403b68",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Manually test different search strings",
+        "info": "",
+        "x": 372.49993896484375,
+        "y": 294.5833435058594,
+        "wires": []
+    },
+    {
+        "id": "2a5da47a.67e6d4",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Searches twitter with the desired string",
+        "info": "",
+        "x": 699.1666259765625,
+        "y": 99.58333587646484,
+        "wires": []
+    },
+    {
+        "id": "5061b070.f9db8",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Rate limit the messages for the API",
+        "info": "",
+        "x": 704.1666259765625,
+        "y": 201.24996948242188,
+        "wires": []
+    },
+    {
+        "id": "64fe38ae.cdd57",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Using watson, analyze the tone of the message",
+        "info": "",
+        "x": 1307.5,
+        "y": 304.58331298828125,
+        "wires": []
+    },
+    {
+        "id": "6718c78f.915bc8",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Publish to a previously setup Cloudant \"tweets\" database",
+        "info": "",
+        "x": 1294.1666259765625,
+        "y": 462.9166564941406,
+        "wires": []
+    },
+    {
+        "id": "b8cb8c0c.48327",
+        "type": "comment",
+        "z": "3976d383.e318f4",
+        "name": "Print the output messages to the debug console",
+        "info": "",
+        "x": 1262.5,
+        "y": 537.9165649414062,
+        "wires": []
+    }
+]
