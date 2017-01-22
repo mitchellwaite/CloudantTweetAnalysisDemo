@@ -15,6 +15,8 @@ Both IBM and ESRI sponsoded the event, providing credits for BlueMix and ArcGIS 
 
 ![sample-map-cali](https://raw.githubusercontent.com/mitchellwaite/CloudantTweetAnalysisDemo/master/sample-map.png)
 
+For the selected category, green indicates a positive sentiment, blue indicates a neutral sentiment, and red indicates a negative sentiment.
+
 #### Node-RED flow
 
 ![The Node-RED flow configuration](https://raw.githubusercontent.com/mitchellwaite/CloudantTweetAnalysisDemo/master/nodes-screenshot.png)
