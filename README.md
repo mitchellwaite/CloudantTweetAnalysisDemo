@@ -11,17 +11,17 @@ This can help determine the public opinion of both persons. Reasonably, this cou
 
 Both IBM and ESRI sponsoded the event, providing credits for BlueMix and ArcGIS respectfully.
 
-### Screenshots
-
 #### Map
 
 #### Node-RED flow
 
-(Link to cleansed JSON Config)
+![The Node-RED flow configuration](https://raw.githubusercontent.com/mitchellwaite/CloudantTweetAnalysisDemo/master/nodes-screenshot.png)
 
 #### Links
 
 [Link to the website containing the ArcGIS map](http://sample-env.vyupvztbtq.us-east-1.elasticbeanstalk.com)
+
+[Link to cleansed JSON Config](https://github.com/mitchellwaite/CloudantTweetAnalysisDemo/blob/master/nodes.json)
 
 ### Publish the NodeRED app in BlueMix
 
