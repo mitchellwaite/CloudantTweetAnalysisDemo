@@ -7,7 +7,7 @@ It was created by a team of 4 at the SBHacks III hackathon in Santa Barbara, Cal
 
 The object of CloudantTweetAnalysisDemo was to collect tweets mentioning (as of Jan 21, 2017) former President Barack Obama and current president Donald Trump, run sentiment and tone analysis, and visualize the data on an esri ArcGIS map.
 
-This can help determine the public opinion of both persons. Reasonably, this could be extended to any persons, or even two competing products.
+This can help determine the public opinion on both persons. Obama and Trump were chosen because both are active and mentioned very frequently on twitter, so we were able to get a large data set. Reasonably, this could be extended to any persons, or even two competing products. 
 
 Both IBM and ESRI sponsoded the event, providing credits for BlueMix and ArcGIS respectfully.
 
