@@ -1,12 +1,36 @@
-Node-RED Bluemix Starter Application
+CloudantTweetAnalysisDemo
 ====================================
 
-### Node-RED in BlueMix
+### What is CloudantTweetAnalysisDemo?
 
-This repository is an example Node-RED application that can be deployed into
+It was created by a team of 4 at the SBHacks III hackathon in Santa Barbara, California. 
+
+The object of CloudantTweetAnalysisDemo was to collect tweets mentioning (as of Jan 21, 2017) former President Barack Obama and current president Donald Trump, run sentiment and tone analysis, and visualize the data on an esri ArcGIS map.
+
+This can help determine the public opinion of both persons. Reasonably, this could be extended to any persons, or even two competing products.
+
+Both IBM and ESRI sponsoded the event, providing credits for BlueMix and ArcGIS respectfully.
+
+### Screenshots
+
+#### Map
+
+#### Node-RED flow
+
+(Link to cleansed JSON Config)
+
+#### Links
+
+[Link to the website containing the ArcGIS map](http://sample-env.vyupvztbtq.us-east-1.elasticbeanstalk.com)
+
+### Publish the NodeRED app in BlueMix
+
+This repository is based on a Node-RED application that can be deployed into
 Bluemix with only a couple clicks. Try it out for yourself right now by clicking:
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/ibmets/node-red-bluemix-starter.git)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/mitchellwaite/CloudantTweetAnalysisDemo.git)
+
+Then, import the nodes.json file, cofigure the twitter and cloudant nodes, and hit the "trigger" button! Tweets will start to be collected, filtered, and saved in the cloudant database.
 
 ### How does this work?
 
