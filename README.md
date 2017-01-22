@@ -13,13 +13,15 @@ Both IBM and ESRI sponsoded the event, providing credits for BlueMix and ArcGIS 
 
 #### Map
 
+![sample-map-cali](https://raw.githubusercontent.com/mitchellwaite/CloudantTweetAnalysisDemo/master/sample-map.png)
+
 #### Node-RED flow
 
 ![The Node-RED flow configuration](https://raw.githubusercontent.com/mitchellwaite/CloudantTweetAnalysisDemo/master/nodes-screenshot.png)
 
 #### Links
 
-[Link to the website containing the ArcGIS map](http://sample-env.vyupvztbtq.us-east-1.elasticbeanstalk.com)
+[Link to the website containing the ArcGIS map](http://mwaite.maps.arcgis.com/apps/View/index.html?webmap=d7087c6f6ba144fd84f003e37058b448)
 
 [Link to cleansed JSON Config](https://github.com/mitchellwaite/CloudantTweetAnalysisDemo/blob/master/nodes.json)
 
