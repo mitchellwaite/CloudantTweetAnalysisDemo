@@ -9,7 +9,7 @@ The object of PresidentialTweets was to collect tweets mentioning (as of Jan 21,
 
 This can help determine the public opinion on both persons. Obama and Trump were chosen because both are active and mentioned very frequently on twitter, so we were able to get a large data set. Reasonably, this could be extended to any persons, or even two competing products. 
 
-Both IBM and ESRI sponsoded the event, providing credits for BlueMix and ArcGIS respectfully.
+Both IBM and ESRI sponsored the event, providing credits for BlueMix and ArcGIS respectfully.
 
 #### Map
 
